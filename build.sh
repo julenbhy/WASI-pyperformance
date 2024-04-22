@@ -3,10 +3,12 @@ sed -i 's/--max-memory=10485760/--max-memory=4294901760/' cpython/configure
 python3 ./cpython/Tools/wasm/wasm_build.py wasi-threads
 
 
-mkdir cpython/pyperformance/
-cp -r pyperformance/pyperformance/data-files/benchmarks/* cpython/pyperformance/
+mkdir -p cpython/benchmarks/pyperformance
+cp -r pyperformance/pyperformance/data-files/benchmarks/* cpython/benchmarks/pyperformance
+
+cp -r test_codes cpython/benchmarks/
 
 
-# Solve executable not found error
+# Fix pyperf for working with WASM. Solve executable not found error
 sed -i 's/args = self.argparser.parse_args(args)/args = self.argparser.parse_args(args)\n        args.python="builddir\/wasi-threads\/python.wasm"/' pyperf/pyperf/_runner.py
 cp -r pyperf/pyperf cpython/Lib/
