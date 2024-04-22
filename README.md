@@ -24,11 +24,14 @@
     ./run_python.sh path/from/cpython/to/input.py
 
 Keep in mind that Python will take CPython as the root directory. The path to the script should be indicated by taking the CPython directory as the root.
-e.g.
+
+E.g.
+
+#### Run test code
 
     ./run_python.sh benchmarks/test_codes/test.py
 
-### Run pyperformace benchmark
+#### Run pyperformace benchmark
 
     ./run_python.sh benchmarks/pyperformance/bm_pidigits/run_benchmark.py --python=builddir/wasi-threads/python.wasm
 
