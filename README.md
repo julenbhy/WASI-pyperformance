@@ -25,7 +25,12 @@
 
 Keep in mind that Python will take CPython as the root directory. The path to the script should be indicated by taking the CPython directory as the root.
 e.g.
+
     ./run_python.sh benchmarks/test_codes/test.py
+
+### Run pyperformace benchmark
+
+    ./run_python.sh benchmarks/pyperformance/bm_2to3/run_benchmark.py --python=builddir/wasi-threads/python.wasm
 
 
     
