@@ -1,3 +1,9 @@
 [submodule "cpython"]
 	path = cpython
 	url = https://github.com/python/cpython
+[submodule "pyperformance"]
+	path = pyperformance
+	url = https://github.com/python/pyperformance
+[submodule "pyperf"]
+	path = pyperf
+	url = https://github.com/psf/pyperf
