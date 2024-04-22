@@ -30,7 +30,7 @@ e.g.
 
 ### Run pyperformace benchmark
 
-    ./run_python.sh benchmarks/pyperformance/bm_2to3/run_benchmark.py --python=builddir/wasi-threads/python.wasm
+    ./run_python.sh benchmarks/pyperformance/bm_pidigits/run_benchmark.py --python=builddir/wasi-threads/python.wasm
 
 
     
