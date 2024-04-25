@@ -98,7 +98,7 @@ class Manager(object):
 
                 
                 wasmtime_cmd = ["wasmtime", "run", "-S", "threads", "--wasm", "max-wasm-stack=8388608", \
-                                "--dir", ".::/", \
+                                "--dir", ".", \
                                 "--env", "PYTHONPATH=/builddir/wasi-threads/build/lib.wasi-wasm32-3.13", \
                                 "./builddir/wasi-threads/python.wasm"] 
 
