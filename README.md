@@ -1,6 +1,6 @@
 # WASI-pyperformance
 
-This repository provides tools for compiling and utilizing [CPython](https://github.com/python/cpython) compiled to [wasm32-wasi](https://github.com/WebAssembly/WASI) in a straightforward manner. Additionally, it offers a modified version of the [pyperformance](https://github.com/python/pyperformance) benchmark to enable its execution on the resulting python.wasm interpreter.
+This repository provides tools for compiling and utilizing [CPython](https://github.com/python/cpython) compiled to [wasm32-wasi](https://github.com/WebAssembly/WASI) in a straightforward manner. Additionally, it offers a slightly modified version of the [pyperformance](https://github.com/python/pyperformance) benchmark to enable its execution on the resulting python.wasm interpreter.
 
 ## Build:
 
