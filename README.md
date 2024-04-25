@@ -29,9 +29,9 @@ WASI uses a capability-based security model. This means that the WASI host does 
 
     ./run_python.sh benchmarks/test_codes/test.py
 
-## [Pyperformace benchmark](https://github.com/python/pyperformance)
+## Pyperformace benchmark
 
-The pyperformance benchmark employs the Pyperf library. This library spawns subprocesses to execute the target code and ultimately display the results. Currently, WASI does not support process creation, prompting the adoption of the following approach:
+The [pyperformance benchmark](https://github.com/python/pyperformance) employs the Pyperf library. This library spawns subprocesses to execute the target code and ultimately display the results. Currently, WASI does not support process creation, prompting the adoption of the following approach:
 
 Initially, the benchmark is launched using standard Python. Subsequently, the Pyperf library is modified by substituting the file _manager.py with _manager_wasm.py, which is a modified version that directs subprocess execution to the CPython interpreter compiled to WebAssembly (Wasm). Consequently, a standard CPython instance handles the benchmark management, while a CPython.wasm instance executes the function under evaluation.
 
