@@ -9,6 +9,10 @@
 ### Install WASI-SDK at the deffault path:
     curl -sL https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-22/wasi-sdk-22.0-linux.tar.gz | sudo tar -xz -C /opt/ && sudo mv /opt/wasi-sdk-22.0 /opt/wasi-sdk
 
+### Install latest Wasmtime:
+    curl https://wasmtime.dev/install.sh -sSf | bash
+
+
 ### Build the repository:
     ./build.sh
 
