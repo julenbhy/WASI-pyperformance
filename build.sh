@@ -9,8 +9,12 @@ cp -r pyperformance/pyperformance/data-files/benchmarks/* cpython/benchmarks/pyp
 cp -r test_codes cpython/benchmarks/
 
 
-# Fix pyperf for working with WASM. ERROR: Unable to locate the Python executable: ''
-#sed -i 's/args = self.argparser.parse_args(args)/args = self.argparser.parse_args(args)\n        args.python="builddir\/wasi-threads\/python.wasm"/' pyperf/pyperf/_runner.py
-# Solved by passing --python=builddir/wasi-threads/python.wasm as an argument to pyperformance executables
 
+# Add pyperf to cpython
 cp -r pyperf/pyperf cpython/Lib/
+
+# Change the _manager.py to _manager_wasm.py to avoid using Popen and pipes
+cp _manager_wasm.py cpython/Lib/pyperf/_manager.py
+
+# Set hostname to "Wasm" to avoid using socket.gethostname()
+sed -i 's/hostname = socket.gethostname()/hostname = "Wasm"/' cpython/Lib/pyperf/_collect_metadata.py
