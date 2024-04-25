@@ -109,9 +109,9 @@ class Manager(object):
                 # Solve ERROR: Unable to locate the Python executable: ''
                 cmd = cmd + ["--python", "/dev/null"]
 
-                # change "'--pipe', '4' " to "'--pipe', '2'"
+                # change "'--pipe', '4' " to "'--pipe', '2'" so i cant get the output from stderr
                 cmd[14] = "2"
-                print("Executig: ", cmd)
+                #print("Executig: ", cmd)
 
                 # Execute the command with subprocess.run
                 proc = subprocess.run(cmd, env=env, capture_output=True)
