@@ -98,9 +98,9 @@ class Manager(object):
 
                 
                 wasmtime_cmd = ["wasmtime", "run", "-S", "threads", "--wasm", "max-wasm-stack=8388608", \
-                                "--dir", "/home/julen/Cloudlab/WASI-python-benchmarks/cpython::/", \
+                                "--dir", ".::/", \
                                 "--env", "PYTHONPATH=/builddir/wasi-threads/build/lib.wasi-wasm32-3.13", \
-                                "/home/julen/Cloudlab/WASI-python-benchmarks/cpython/builddir/wasi-threads/python.wasm"] 
+                                "./builddir/wasi-threads/python.wasm"] 
 
                 # Remove first element of cmd list and prepend wasmtime_cmd
                 cmd.pop(0)
