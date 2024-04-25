@@ -10,6 +10,8 @@ RUNTIME="wasmtime"  # Default runtime
 function show_help {
     echo "Usage: $0 [-r runtime] <script.py>"
     echo ""
+    echo "Files are mapped from cpython/. Set path/to/your/script.py from inside cpython directory"
+    echo ""
     echo "Options:"
     echo "  -r <runtime>  Specify the runtime to use: wasmtime(default), wasmer(not working), iwasm(not working))"
     echo "  -h            Show this help message"
