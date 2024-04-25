@@ -1,4 +1,4 @@
-# WASI-python-benchmarks
+# WASI-pyperformance
 
 ## Build:
 
