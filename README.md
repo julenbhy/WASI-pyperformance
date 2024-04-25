@@ -17,7 +17,7 @@
     ./build.sh
 
 
-## Run
+## Run:
 
 WASI uses a capability-based security model. This means that the WASI host does not give full access to your machine. Files clould be mapped to a different path inside the WASI host. So, if you try passing a file path to python.wasm/ python.sh, it needs to match the path inside the WASI host, not the path on your machine (much like using a container).
 
@@ -29,7 +29,7 @@ WASI uses a capability-based security model. This means that the WASI host does 
 
     ./run_python.sh benchmarks/test_codes/test.py
 
-## Pyperformace benchmark
+## Pyperformace benchmark:
 
 The [pyperformance benchmark](https://github.com/python/pyperformance) employs the [Pyperf library](https://github.com/psf/pyperf). This library spawns subprocesses to execute the target code and ultimately display the results. Currently, WASI does not support process creation, prompting the adoption of the following approach:
 
