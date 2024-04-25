@@ -6,14 +6,31 @@ ENV="PYTHONPATH=/builddir/wasi-threads/build/lib.wasi-wasm32-3.13"
 EXE="./builddir/wasi-threads/python.wasm"
 RUNTIME="wasmtime"  # Default runtime
 
+# Show help message
+function show_help {
+    echo "Usage: $0 [-r runtime] <script.py>"
+    echo ""
+    echo "Options:"
+    echo "  -r <runtime>  Specify the runtime to use: wasmtime(default), wasmer(not working), iwasm(not working))"
+    echo "  -h            Show this help message"
+    exit 1
+}
+
 # Parse command line options
-while getopts "r:" opt; do
+while getopts "r:h" opt; do
   case $opt in
     r) RUNTIME="$OPTARG";;
+    h) show_help;;
     \?) echo "Invalid option -$OPTARG" >&2
-        exit 1;;
+        show_help;;
   esac
 done
+
+# Check if the specified runtime is available
+if ! command -v $RUNTIME &> /dev/null; then
+    echo -e "\e[31mError:\e[0m $RUNTIME is not available in your system"
+    exit 1
+fi
 
 # Shift arguments to process non-option arguments
 shift $((OPTIND -1))
