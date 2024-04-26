@@ -46,6 +46,7 @@ else
 fi
 
 # If input file specified, check if input file exists under cpython directory
+'''
 if [ -n "$1" ]; then
     if [ -f "$1" ]; then
         EXE="$1"
@@ -57,7 +58,7 @@ if [ -n "$1" ]; then
         exit 1
     fi
 fi
-
+'''
 # Run with the selected runtime
 case $RUNTIME in
     wasmtime)

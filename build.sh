@@ -6,7 +6,7 @@ python3 ./cpython/Tools/wasm/wasm_build.py wasi-threads
 mkdir -p cpython/benchmarks/pyperformance
 cp -r pyperformance/pyperformance/data-files/benchmarks/* cpython/benchmarks/pyperformance
 
-cp -r test_codes cpython/benchmarks/
+cp -r benchmarks/ cpython/
 
 
 
@@ -18,3 +18,6 @@ cp _manager_wasm.py cpython/Lib/pyperf/_manager.py
 
 # Set hostname to "Wasm" to avoid using socket.gethostname()
 sed -i 's/hostname = socket.gethostname()/hostname = "Wasm"/' cpython/Lib/pyperf/_collect_metadata.py
+
+# Add pyperformance to libraries
+cp -r cpython/benchmarks/pyperformance/bm_2to3/vendor/src/lib2to3 cpython/Lib/
