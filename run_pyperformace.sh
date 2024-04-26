@@ -1,5 +1,6 @@
 cd cpython
-#./builddir/build/python benchmarks/pyperformance/bm_docutils/run_benchmark.py -t -p 1
+
+#./builddir/build/python benchmarks/pyperformance/bm_django_template/run_benchmark.py -t -p 1
 
 # run  every benchmark in benchmarks/pyperformance/dir_name/run_benchmark.py 
 
@@ -20,9 +21,15 @@ do
     fi
 done
 
+# Print how many benchmarks failed from the total
+total=$(ls benchmarks/pyperformance/ -1 | wc -l)
+failed=$(echo ${#failed_list[@]})
+echo -e "\n\e[32m$((total-failed))/$total benchmarks passed\e[0m"
+
+
 # Print failed list
 echo -e "\n\e[31mFailed benchmarks:\e[0m"
 for failed in "${failed_list[@]}"
 do
-    echo $failed
+    echo "  $failed"
 done
