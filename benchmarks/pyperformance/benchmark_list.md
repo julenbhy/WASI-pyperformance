@@ -62,9 +62,9 @@
 
     bm_hexiom: ✅
 
-    bm_regex_v8: ❌ Warning message breaks the return to JSON: DeprecationWarning: 'count' is passed as positional argument
+    bm_regex_v8: ✅ Added -W inore to prevent warning from breaking the JSON
 
-    bm_sqlite_synth: ❌ Warning message breaks the return to JSON: ModuleNotFoundError: No module named '_sqlite3'
+    bm_sqlite_synth: ❌ ModuleNotFoundError: No module named '_sqlite3'
 
     bm_generators: ✅
 
@@ -82,9 +82,9 @@
 
     bm_nbody: ✅
 
-    bm_sqlglot: ❌ error: the following arguments are required: benchmark
+    bm_sqlglot: ❌ Unable to set __version__
 
-    bm_pickle: ❌ error: the following arguments are required: benchmark
+    bm_pickle: ✅ Select from multiple versions (pickle, pickle_dict, pickle_list, unpickle or unpickle_list)
 
     bm_coverage: ❌ No module named '_sqlite3'
 
@@ -102,7 +102,7 @@
 
     bm_deepcopy: ✅
 
-    bm_regex_compile: ❌ Warning message breaks the return to JSON: DeprecationWarning: 'count' is passed as positional argument
+    bm_regex_compile:✅ Added -W inore to prevent warning from breaking the JSON
 
     bm_tornado_http: ❌ No module named '_ssl'
 

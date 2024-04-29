@@ -53,15 +53,9 @@ bench_async_func=(
 )
 
 
-# Set benchmarks to run
+# SET BENCHMARKS TO RUN
 benchmarks=("${bench_async_func[@]}")
 
-# Print benchmarks to run
-echo -e "\n\e[32mBenchmarks to run:\e[0m"
-for benchmark in "${benchmarks[@]}"
-do
-    echo "  $benchmark"
-done
 
 # Create failed list
 failed_list=()
@@ -73,6 +67,13 @@ do
 
     cmd="$PYTHON benchmarks/pyperformance/$benchmark/run_benchmark.py -p 1"
 
+    # If benchmark is bm_sqlglot, add --benchmark parameter
+    if [ "$benchmark" == "bm_sqlglot" ]; then
+        cmd="$cmd normalize" # parse, transpile, optimize or normalize
+    elif [ "$benchmark" == "bm_pickle" ]; then
+        cmd="$cmd pickle" # pickle, pickle_dict, pickle_list, unpickle or unpickle_list
+    fi
+
     echo $cmd
     if ! $cmd; then
         echo -e "\e[31mError:\e[0m $benchmark failed"
@@ -80,7 +81,7 @@ do
     fi
 done
 
-# Print how many benchmarks failed from the total
+# Print how many benchmarks failed
 total=${#benchmarks[@]}
 failed=${#failed_list[@]}
 echo -e "\n\e[32m$((total-failed))/$total benchmarks passed\e[0m"

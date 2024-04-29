@@ -100,7 +100,7 @@ class Manager(object):
                 wasmtime_cmd = ["wasmtime", "run", "-S", "threads", "--wasm", "max-wasm-stack=8388608", \
                                 "--dir", ".", \
                                 "--env", "PYTHONPATH=/builddir/wasi-threads/build/lib.wasi-wasm32-3.13", \
-                                "./builddir/wasi-threads/python.wasm"] 
+                                "./builddir/wasi-threads/python.wasm", "-W", "ignore"] 
 
                 # Remove first element of cmd list and prepend wasmtime_cmd
                 cmd.pop(0)
@@ -109,11 +109,11 @@ class Manager(object):
                 # Solve ERROR: Unable to locate the Python executable: ''
                 cmd = cmd + ["--python", "/dev/null"]
 
-                # change "'--pipe', '4' " to "'--pipe', '2'" so i cant get the output from stderr
-                cmd[14] = "2"
-                #print("Executig: ", cmd)
+                # Get position of "--pipe" and change the value to 2 (stderr) so that subprocess.run captures the output
+                pipe_index = cmd.index("--pipe")
+                cmd[pipe_index + 1] = "2"
 
-                # Execute the command with subprocess.run
+                #print("Executig: ", cmd)
                 proc = subprocess.run(cmd, env=env, capture_output=True)
 
                 #print('stdout: ', proc.stdout.decode("utf-8"))
