@@ -28,8 +28,7 @@ bench_func=(
     "bm_go" "bm_chameleon"  "bm_concurrent_imap" "bm_concurrent_imap" "bm_dulwich_log"
     "bm_chaos"  "bm_logging" "bm_logging" "bm_float" "bm_django_template" "bm_pprint"
     "bm_pprint" "bm_nqueens" "bm_json_dumps" "bm_richards_super" "bm_pidigits"
-    "bm_html5lib" "bm_mako" "bm_json_loads" "bm_xml_etree" "bm_xml_etree"
-    "bm_xml_etree" "bm_xml_etree" "bm_richards" "bm_deltablue" "bm_fannkuch"
+    "bm_html5lib" "bm_mako" "bm_json_loads" "bm_xml_etree" "bm_richards" "bm_deltablue" "bm_fannkuch"
 )
 
 # List of benchmarks using bench_command
@@ -55,7 +54,14 @@ bench_async_func=(
 
 
 # Set benchmarks to run
-benchmarks=("${bench_func[@]}")
+benchmarks=("${bench_async_func[@]}")
+
+# Print benchmarks to run
+echo -e "\n\e[32mBenchmarks to run:\e[0m"
+for benchmark in "${benchmarks[@]}"
+do
+    echo "  $benchmark"
+done
 
 # Create failed list
 failed_list=()
