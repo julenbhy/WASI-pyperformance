@@ -62,9 +62,9 @@
 
     bm_hexiom: ✅
 
-    bm_regex_v8: ❌ Warning message the return to JSON: DeprecationWarning: 'count' is passed as positional argument
+    bm_regex_v8: ❌ Warning message breaks the return to JSON: DeprecationWarning: 'count' is passed as positional argument
 
-    bm_sqlite_synth: ❌ Warning message the return to JSON: ModuleNotFoundError: No module named '_sqlite3'
+    bm_sqlite_synth: ❌ Warning message breaks the return to JSON: ModuleNotFoundError: No module named '_sqlite3'
 
     bm_generators: ✅
 
@@ -102,7 +102,7 @@
 
     bm_deepcopy: ✅
 
-    bm_regex_compile: ❌ Warning message the return to JSON: DeprecationWarning: 'count' is passed as positional argument
+    bm_regex_compile: ❌ Warning message breaks the return to JSON: DeprecationWarning: 'count' is passed as positional argument
 
     bm_tornado_http: ❌ No module named '_ssl'
 
