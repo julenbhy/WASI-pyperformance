@@ -3,26 +3,6 @@ cd cpython
 # Set python path to the python binary built from the cpython source
 PYTHON=./builddir/build/python
 
-all_benchmarks=(
-    "bm_2to3" "bm_async_generators" "bm_asyncio_tcp" "bm_asyncio_websockets"
-    "bm_async_tree" "bm_chameleon" "bm_chaos" "bm_comprehensions"
-    "bm_concurrent_imap" "bm_coroutines" "bm_coverage" "bm_crypto_pyaes"
-    "bm_dask" "bm_deepcopy" "bm_deltablue" "bm_django_template"
-    "bm_docutils" "bm_dulwich_log" "bm_fannkuch" "bm_float"
-    "bm_gc_collect" "bm_gc_traversal" "bm_generators" "bm_genshi"
-    "bm_go" "bm_hexiom" "bm_hg_startup" "bm_html5lib" "bm_json_dumps"
-    "bm_json_loads" "bm_logging" "bm_mako" "bm_mdp" "bm_meteor_contest"
-    "bm_nbody" "bm_nqueens" "bm_pathlib" "bm_pickle" "bm_pidigits"
-    "bm_pprint" "bm_pyflate" "bm_python_startup" "bm_raytrace"
-    "bm_regex_compile" "bm_regex_dna" "bm_regex_effbot" "bm_regex_v8"
-    "bm_richards" "bm_richards_super" "bm_scimark" "bm_spectral_norm"
-    "bm_sqlalchemy_declarative" "bm_sqlalchemy_imperative" "bm_sqlglot"
-    "bm_sqlite_synth" "bm_sympy" "bm_telco" "bm_tomli_loads"
-    "bm_tornado_http" "bm_typing_runtime_protocols" "bm_unpack_sequence"
-    "bm_xml_etree"
-)
-
-
 # List of benchmarks using bench_func
 bench_func=(
     "bm_go" "bm_chameleon"  "bm_concurrent_imap" "bm_concurrent_imap" "bm_dulwich_log"
@@ -54,20 +34,29 @@ bench_async_func=(
 
 
 # SET BENCHMARKS TO RUN
-benchmarks=("${all_benchmarks[@]}")
+benchmarks=("${bench_func[@]}" "${bench_command[@]}" "${bench_time_func[@]}" "${bench_async_func[@]}")
+
+
+output_file="benchmarks/pyperformance/pyperformance_results.txt"
+
+verbose=False
 
 
 # Create failed list
 failed_list=()
 
+# Reset output file
+echo -n "" > "$output_file"
+
 # Iterate over directories in benchmarks/pyperformance
 for benchmark in "${benchmarks[@]}"
 do
-    echo -e "\e[32m\nRunning benchmark $benchmark\e[0m"
+    echo -e "\nRunning benchmark $benchmark"
 
-    cmd="$PYTHON benchmarks/pyperformance/$benchmark/run_benchmark.py -p 1"
+    # Base command for all benchmarks
+    cmd="$PYTHON -W ignore benchmarks/pyperformance/$benchmark/run_benchmark.py -p 1"
 
-    # If benchmark is bm_sqlglot, add --benchmark parameter
+    # Set specific arguments for each benchmark
     if [ "$benchmark" == "bm_async_tree" ]; then
         cmd="$cmd none" # none, eager, io, eager_io, memoization, eager_memoization, cpu_io_mixed or eager_cpu_io_mixed
     elif [ "$benchmark" == "bm_sqlglot" ]; then
@@ -76,18 +65,37 @@ do
         cmd="$cmd pickle" # pickle, pickle_dict, pickle_list, unpickle or unpickle_list
     fi
 
-    echo $cmd
-    if ! $cmd; then
-        echo -e "\e[31mError:\e[0m $benchmark failed"
+
+    if [ "$verbose" == "True" ]; then
+        echo -e "$cmd"
+    fi
+    output=$($cmd 2>&1)    
+
+    # Check if the execution was successful
+    if [ $? -eq 0 ]; then
+        clean_output=$(echo "$output" | grep -E '[0-9]')
+        if [ "$verbose" == "True" ]; then
+            echo -e "$clean_output"
+        fi
+        echo -e "$clean_output" >> "$output_file"
+    else
+        echo -e "\e[31mExecution failed\e[0m"
+        if [ "$verbose" == "True" ]; then
+            echo -e "\e[31m$output\e[0m"
+        fi
+        echo -e "$benchmark: Failed" >> "$output_file"
         failed_list+=($benchmark)
     fi
 done
 
+# Print end message. Print resulting info
+echo -e "\n\e[32mBENCHMARKING FINISHED\e[0m"
+echo -e "\nResults saved in $output_file"
+
 # Print how many benchmarks failed
 total=${#benchmarks[@]}
 failed=${#failed_list[@]}
-echo -e "\n\e[32m$((total-failed))/$total benchmarks passed\e[0m"
-
+echo -e "\n$((total-failed))/$total benchmarks passed"
 
 # Print failed list
 echo -e "\n\e[31mFailed benchmarks:\e[0m"
@@ -95,3 +103,5 @@ for failed in "${failed_list[@]}"
 do
     echo "  $failed"
 done
+
+
