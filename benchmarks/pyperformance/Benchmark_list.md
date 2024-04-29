@@ -45,13 +45,6 @@
 
     bm_fannkuch: ✅
 
-## Benchmarks using bench_command:
-    bm_2to3: ❌ OSError: [Errno 58] wasi does not support processes.
-
-    bm_python_startup: ❌ OSError: [Errno 58] wasi does not support processes.
-
-    bm_hg_startup: ❌ ERROR: Unable to get the virtual environment of the Python executable
-
 ## Benchmarks using bench_time_func:
     bm_coroutines: ✅
 
@@ -128,6 +121,14 @@
     bm_docutils: ✅
 
     bm_gc_traversal: ✅
+
+## Benchmarks using bench_command:
+    bm_2to3: ❌ OSError: [Errno 58] wasi does not support processes.
+
+    bm_python_startup: ❌ OSError: [Errno 58] wasi does not support processes.
+
+    bm_hg_startup: ❌ ERROR: Unable to get the virtual environment of the Python executable
+
 
 ## Benchmarks using bench_async_func:
     bm_async_tree: ❌ AttributeError: '_UnixSelectorEventLoop' object has no attribute '_ssock'
