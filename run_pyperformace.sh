@@ -54,7 +54,7 @@ bench_async_func=(
 
 
 # SET BENCHMARKS TO RUN
-benchmarks=("${bench_async_func[@]}")
+benchmarks=("${all_benchmarks[@]}")
 
 
 # Create failed list
@@ -68,7 +68,9 @@ do
     cmd="$PYTHON benchmarks/pyperformance/$benchmark/run_benchmark.py -p 1"
 
     # If benchmark is bm_sqlglot, add --benchmark parameter
-    if [ "$benchmark" == "bm_sqlglot" ]; then
+    if [ "$benchmark" == "bm_async_tree" ]; then
+        cmd="$cmd none" # none, eager, io, eager_io, memoization, eager_memoization, cpu_io_mixed or eager_cpu_io_mixed
+    elif [ "$benchmark" == "bm_sqlglot" ]; then
         cmd="$cmd normalize" # parse, transpile, optimize or normalize
     elif [ "$benchmark" == "bm_pickle" ]; then
         cmd="$cmd pickle" # pickle, pickle_dict, pickle_list, unpickle or unpickle_list
