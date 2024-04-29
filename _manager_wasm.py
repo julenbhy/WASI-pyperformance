@@ -116,6 +116,9 @@ class Manager(object):
                 # Execute the command with subprocess.run
                 proc = subprocess.run(cmd, env=env, capture_output=True)
 
+                #print('stdout: ', proc.stdout.decode("utf-8"))
+                #print('stderr: ', proc.stderr.decode("utf-8"))
+
                 bench_json = proc.stderr.decode("utf-8")
 
         return _load_suite_from_pipe(bench_json)
