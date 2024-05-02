@@ -39,7 +39,7 @@ Initially, the benchmark is launched using standard Python. Subsequently, the Py
 
     ./run_pyperformance.py
 
-Currently running a single benchmark
+Currently, not all benchmarks are running. You can find a list of the functional benchmarks in the following [list](https://github.com/julenbhy/WASI-pyperformance/blob/main/benchmarks/pyperformance/benchmark_list.md).
 
 ## Adding additional libraries:
 Download the Python code of the required library and add it to the directory cpython/Lib. You can follow the example of pyperf library.
