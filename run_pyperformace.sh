@@ -5,9 +5,9 @@ PYTHON=./builddir/build/python
 
 # List of benchmarks using bench_func
 bench_func=(
-    "bm_go" "bm_chameleon"  "bm_concurrent_imap" "bm_concurrent_imap" "bm_dulwich_log"
-    "bm_chaos"  "bm_logging" "bm_logging" "bm_float" "bm_django_template" "bm_pprint"
-    "bm_pprint" "bm_nqueens" "bm_json_dumps" "bm_richards_super" "bm_pidigits"
+    "bm_go" "bm_chameleon"  "bm_concurrent_imap" "bm_dulwich_log"
+    "bm_chaos"  "bm_logging" "bm_float" "bm_django_template" "bm_pprint"
+    "bm_nqueens" "bm_json_dumps" "bm_richards_super" "bm_pidigits"
     "bm_html5lib" "bm_mako" "bm_json_loads" "bm_xml_etree" "bm_richards" "bm_deltablue" "bm_fannkuch"
 )
 
@@ -33,13 +33,26 @@ bench_async_func=(
 )
 
 
-# SET BENCHMARKS TO RUN
-benchmarks=("${bench_func[@]}" "${bench_command[@]}" "${bench_time_func[@]}" "${bench_async_func[@]}")
+working_benchmarks=("bm_go" "bm_chameleon" "bm_chaos"  "bm_logging" "bm_logging" "bm_float" "bm_pprint"
+                    "bm_pprint" "bm_nqueens" "bm_json_dumps" "bm_richards_super" "bm_pidigits"
+                    "bm_json_loads" "bm_xml_etree" "bm_richards" "bm_deltablue" "bm_fannkuch"
+                    "bm_coroutines" "bm_meteor_contest" "bm_spectral_norm" "bm_telco" "bm_mdp"
+                    "bm_hexiom" "bm_regex_v8" "bm_generators" "bm_raytrace" "bm_gc_collect" 
+                    "bm_logging" "bm_unpack_sequence" "bm_pathlib" "bm_nbody" "bm_pickle"
+                    "bm_scimark" "bm_regex_effbot" "bm_comprehensions" "bm_crypto_pyaes" "bm_deepcopy"
+                    "bm_regex_compile" "bm_xml_etree" "bm_pyflate" "bm_regex_dna" "bm_typing_runtime_protocols"
+                    "bm_tomli_loads" "bm_docutils" "bm_gc_traversal"
+                    )
 
+
+# SET BENCHMARKS TO RUN
+benchmarks=("${working_benchmarks[@]}")
 
 output_file="benchmarks/pyperformance/pyperformance_results.txt"
 
-verbose=False
+verbose=True
+
+bench_params=""
 
 
 # Create failed list
@@ -54,7 +67,7 @@ do
     echo -e "\nRunning benchmark $benchmark"
 
     # Base command for all benchmarks
-    cmd="$PYTHON -W ignore benchmarks/pyperformance/$benchmark/run_benchmark.py -p 1"
+    cmd="$PYTHON -W ignore benchmarks/pyperformance/$benchmark/run_benchmark.py $bench_params"
 
     # Set specific arguments for each benchmark
     if [ "$benchmark" == "bm_async_tree" ]; then
@@ -89,6 +102,7 @@ do
 done
 
 # Print end message. Print resulting info
+echo -e "\n--------------------------------------------"
 echo -e "\n\e[32mBENCHMARKING FINISHED\e[0m"
 echo -e "\nResults saved in $output_file"
 
